@@ -4,7 +4,7 @@ LIMIT = 20;
 
 function onFormSubmit(e) {
   // notify the form owner
-  var recipient = 'worasait.suwannik@gmail.com';  
+  var recipient = 'me@gmail.com';  
   var title = 'สมัคร QGIS';
   MailApp.sendEmail(recipient, title, 
                     'ผู้สมัคร ' + FormApp.getActiveForm().getResponses().length + ' คน\n' + 
