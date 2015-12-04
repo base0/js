@@ -1,33 +1,40 @@
-// base on http://www.labnol.org/internet/schedule-google-forms/20707/
-LIMIT = 18;
+// based on http://www.labnol.org/internet/schedule-google-forms/20707/
 
-function checkLimit(e) {
-  var recipient = 'me@gmail.com';  
-  MailApp.sendEmail(recipient, 'สมัคร QGIS', 
-                    FormApp.getActiveForm().getResponses().length + 'คน\n' + 
-                    e.response.getItemResponses()[0].getResponse());
+LIMIT = 20;
 
+function onFormSubmit(e) {
+  // notify the form owner
+  var recipient = 'worasait.suwannik@gmail.com';  
+  var title = 'สมัคร QGIS';
+  MailApp.sendEmail(recipient, title, 
+                    'ผู้สมัคร ' + FormApp.getActiveForm().getResponses().length + ' คน\n' + 
+                    'ชื่อ: ' + e.response.getItemResponses()[0].getResponse());
+
+  // set remaining seat
+  var available = LIMIT - FormApp.getActiveForm().getResponses().length;
+  FormApp.getActiveForm().setDescription(available + ' seats remaining.  Jan 6, 2016  Room 802');
+  
+  // check limit
   if (FormApp.getActiveForm().getResponses().length >= LIMIT) {
     closeForm();
   }  
 }
 
 function closeForm() {  
+  // stop accepting response
   var form = FormApp.getActiveForm();
   form.setAcceptingResponses(false);
-  deleteTriggers_();
-  informUser_("Your Google Form is no longer accepting responses");
-}
- 
-function deleteTriggers_() {  
+  
+  // delete triggers
   var triggers = ScriptApp.getProjectTriggers();  
   for (var i in triggers) {
     ScriptApp.deleteTrigger(triggers[i]);
   }
+  
+  // notify form owner
+  var subject = 'Your Google Form is no longer accepting responses';
+  var formURL = FormApp.getActiveForm().getPublishedUrl();
+  MailApp.sendEmail(Session.getActiveUser().getEmail(), subject, formURL); 
 }
  
-/* Send a mail to the form owner when the form status changes */
-function informUser_(subject) {
-  var formURL = FormApp.getActiveForm().getPublishedUrl();
-  MailApp.sendEmail(Session.getActiveUser().getEmail(), subject, formURL);  
-}
+
