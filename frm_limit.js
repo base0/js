@@ -13,7 +13,8 @@ function onFormSubmit(e) {
 
   // set remaining seat
   var available = LIMIT - FormApp.getActiveForm().getResponses().length;
-  FormApp.getActiveForm().setDescription(available + ' seats remaining.  Jan 6, 2016  Room 802');
+  var dateRoom = 'Jan 6, 2016  Room 802'
+  FormApp.getActiveForm().setDescription(available + ' seats remaining. ' + dateRoom);
   
   // check limit
   if (FormApp.getActiveForm().getResponses().length >= LIMIT) {
