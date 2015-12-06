@@ -1,17 +1,23 @@
-// send email to all address in COL 1 (B)
+emailColumn = 1;
+myEmail = 'worasait.suwannik@gmail.com';
+
+debug = false;
+
 function myFunction() {
-  var EMAIL_COL = 1;  // 0 is A
   var values = SpreadsheetApp.getActiveSheet().getDataRange().getValues();
   for (var i = 1; i < values.length; i++) {
-    sendMail(values[i][EMAIL_COL]);
+    sendMail(values[i][emailColumn]);
   }
   
-  var myEmail = 'me@gmail.com';
   MailApp.sendEmail(myEmail, 'already informed everyone', 'about ...')
 }
 
 function sendMail(recipient) {
   var subject = 'สวีดัด';
   var body = 'สวัสดี';
-  MailApp.sendEmail(recipient, subject, body)
+  
+  if (debug)
+    MailApp.sendEmail(recipient, subject, body);
+  else 
+    MailApp.sendEmail(myEmail, subject, body);
 }
