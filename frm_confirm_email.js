@@ -14,7 +14,7 @@ function sheetOnFormSubmit(e) {
   var code = "c" + Math.random();
   sheet.getSheets()[0].getRange(row, col).setValue(code);
 
-  var recipient = e.values[xxxxx];  // TODO 1: starts from [1].  [0] is timestamp
+  var recipient = e.values[xxxxx];  // TODO 1: [0] is timestamp
   var url = 'https://script.google.com/xxxxxxxxxxxxx';  // TODO 3: deploy the function doGet below to get the URL
   MailApp.sendEmail(recipient, 'กรุณายืนยันอีเมลของคุณ', 
                     'คุณได้กรอกอีเมลในแบบฟอร์ม...\n\n' +
