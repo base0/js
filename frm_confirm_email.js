@@ -3,7 +3,7 @@
 function sheetOnFormSubmit(e) {
   var sheet = e.source;
   var row = e.range.getLastRow();
-  var col = 5;    // column to put confirmation code
+  var col = xxxx;    // TODO 2: column to put confirmation code (base 1)
   /*
   // for testing
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
@@ -14,8 +14,8 @@ function sheetOnFormSubmit(e) {
   var code = "c" + Math.random();
   sheet.getSheets()[0].getRange(row, col).setValue(code);
 
-  var recipient = e.values[2];  // starts from [1].  [0] is timestamp
-  var url = 'https://script.google.com/macros/s/AKfycbwsYKW7RWz5yCmtTVprqjvqzTq3p3oKO6kIQ7Hefnz95RTOVYFv/exec';
+  var recipient = e.values[xxxxx];  // TODO 1: starts from [1].  [0] is timestamp
+  var url = 'https://script.google.com/xxxxxxxxxxxxx';  // TODO 3: deploy the function doGet below to get the URL
   MailApp.sendEmail(recipient, 'กรุณายืนยันอีเมลของคุณ', 
                     'คุณได้กรอกอีเมลในแบบฟอร์ม...\n\n' +
                     'กรุณาคลิกที่ลิงค์ต่อไปนี้เพื่อยืนยันอีเมลของคุณ\n\n' +
@@ -37,7 +37,7 @@ function checkCode(sheetId, row, col, code) {
   var sheet = SpreadsheetApp.openById(sheetId).getSheets()[0];
 
   if (code == sheet.getRange(row, col).getValue()) {
-    sheet.getRange(row, +col + 1).setValue('yyyy');
+    sheet.getRange(row, +col + 1).setValue('confirmed email');
     return 'your email has been confirmed';
   } else {
     return 'invalid code';
