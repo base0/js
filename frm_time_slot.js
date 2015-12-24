@@ -1,6 +1,7 @@
 function sheetOnFormSubmit(e) {
   var emailCol = 6;
   var startTimeCol = 7;
+  var myEmail = ',g@g.com';   // use '' if don't want a copy of email
   
   var sheet = e.source.getSheets()[0];
   var row = e.range.getLastRow();
@@ -14,15 +15,15 @@ function sheetOnFormSubmit(e) {
   var subject = 'schedule for presenting your Android project';
   var body = 'Hello\n\n'
            + 'You will present your project '
-           + 'on January 5, 2016 ' + sheet.getRange(row, 7).getValue() + '-' + sheet.getRange(row, 8).getValue();
-  MailApp.sendEmail(recipient + ',g@g.com', subject, body);
+           + 'on January 5, 2016 ' + sheet.getRange(row, startTimeCol).getValue() + '-' + sheet.getRange(row, startTimeCol + 1).getValue();
+  MailApp.sendEmail(recipient + myEmail, subject, body);
 }
 
 function getTime(n) {
   var startHour = 9;
-  var afterBreakStartHour = 13;
-  var numBeforeBreak = 6;
   var duration = 15;
+  var numBeforeBreak = 6;
+  var afterBreakStartHour = 13;
   
   if (n >= numBeforeBreak) {
     startHour = afterBreakStartHour;
