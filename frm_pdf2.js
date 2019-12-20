@@ -4,6 +4,7 @@ function myFunction(e) {
   var message = '';
   
   var file = DriveApp.getFileById(docId).makeCopy('application' + Math.random());
+  
   var newDoc = DocumentApp.openById(file.getId());
   replace(newDoc, e);
   newDoc.saveAndClose();
@@ -13,7 +14,7 @@ function myFunction(e) {
   var email = e.response.getRespondentEmail();
   MailApp.sendEmail(email, subject, message, {attachments:[attach]});
   
-  DriveApp.removeFile(file);
+  file.setTrashed(true);
 }
 
 function replace(newDoc, e) {
