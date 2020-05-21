@@ -1,12 +1,12 @@
 const SHEET_NAME = "";
-const TEST = false;             // if true, only first row is used
 const SUBJECT = "";
-var body = `สวัสดีครับคุณ NAME
-
+const BODY = `สวัสดีครับคุณ NAME
 
 ขอแสดงความนับถือ
+
 `;
 
+const TEST = false;             // if true, only first row is used
 
 function myFunction() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -22,7 +22,7 @@ function myFunction() {
 }
 
 function sendMail(recipient, name, url) {
+   var body = BODY;
    body = body.replace("NAME", name);
    MailApp.sendEmail(recipient, SUBJECT, body);
 }
-
